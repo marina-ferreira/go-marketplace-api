@@ -34,7 +34,18 @@ class CreateOrderService {
     const customer = await this.customersRepository.findById(customer_id)
     if (!customer) throw new AppError('Customer not found')
 
-    const order = this.ordersRepository.create({ customer, products })
+    const orderProducts = await this.productsRepository.findAllById(products)
+
+    const items = orderProducts.map(item => ({
+      product_id: item.id,
+      quantity: products.find(product => product.id === item.id)?.quantity || 1,
+      price: item.price
+    }))
+
+    const order = await this.ordersRepository.create({
+      customer,
+      products: items
+    })
 
     return order
   }
