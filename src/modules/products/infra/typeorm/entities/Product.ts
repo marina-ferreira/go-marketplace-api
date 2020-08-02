@@ -4,25 +4,25 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
-} from 'typeorm';
+  OneToMany
+} from 'typeorm'
 
-import OrdersProducts from '@modules/orders/infra/typeorm/entities/OrdersProducts';
+import OrdersProducts from '@modules/orders/infra/typeorm/entities/OrdersProducts'
 
 class Product {
-  id: string;
+  id: string
 
-  name: string;
+  name: string
 
-  price: number;
+  price: number
 
-  quantity: number;
+  quantity: number
 
-  order_products: OrdersProducts[];
+  order_products: OrdersProducts[]
 
-  created_at: Date;
+  created_at: Date
 
-  updated_at: Date;
+  updated_at: Date
 }
 
-export default Product;
+export default Product

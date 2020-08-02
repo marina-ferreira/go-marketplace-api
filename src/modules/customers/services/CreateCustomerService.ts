@@ -1,13 +1,13 @@
-import { inject, injectable } from 'tsyringe';
+import { inject, injectable } from 'tsyringe'
 
-import AppError from '@shared/errors/AppError';
+import AppError from '@shared/errors/AppError'
 
-import Customer from '../infra/typeorm/entities/Customer';
-import ICustomersRepository from '../repositories/ICustomersRepository';
+import Customer from '../infra/typeorm/entities/Customer'
+import ICustomersRepository from '../repositories/ICustomersRepository'
 
 interface IRequest {
-  name: string;
-  email: string;
+  name: string
+  email: string
 }
 
 @injectable()
@@ -19,4 +19,4 @@ class CreateCustomerService {
   }
 }
 
-export default CreateCustomerService;
+export default CreateCustomerService

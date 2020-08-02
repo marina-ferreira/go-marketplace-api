@@ -3,19 +3,19 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+  UpdateDateColumn
+} from 'typeorm'
 
 class Customer {
-  id: string;
+  id: string
 
-  name: string;
+  name: string
 
-  email: string;
+  email: string
 
-  created_at: Date;
+  created_at: Date
 
-  updated_at: Date;
+  updated_at: Date
 }
 
-export default Customer;
+export default Customer
