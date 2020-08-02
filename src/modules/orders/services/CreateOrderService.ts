@@ -34,18 +34,31 @@ class CreateOrderService {
     const customer = await this.customersRepository.findById(customer_id)
     if (!customer) throw new AppError('Customer not found')
 
-    const orderProducts = await this.productsRepository.findAllById(products)
+    const baseProducts = await this.productsRepository.findAllById(products)
+    const isValidProducts = products.length === baseProducts.length
 
-    const items = orderProducts.map(item => ({
-      product_id: item.id,
-      quantity: products.find(product => product.id === item.id)?.quantity || 1,
-      price: item.price
-    }))
+    if (!isValidProducts) throw new AppError('Invalid products')
+
+    const items = baseProducts.map(({ id, quantity, price }) => {
+      const product = products.find(item => item.id === id)
+      const isProductAvailable = product && product.quantity < quantity
+      if (!isProductAvailable) throw new AppError('Not enough products')
+
+      return {
+        product_id: id,
+        quantity: product?.quantity || 1,
+        price
+      }
+    })
 
     const order = await this.ordersRepository.create({
       customer,
       products: items
     })
+
+    if (!order) throw new AppError('Order could not be created')
+
+    await this.productsRepository.updateQuantity(products)
 
     return order
   }
